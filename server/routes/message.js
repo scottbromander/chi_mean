@@ -10,7 +10,13 @@ var MessageSchema = mongoose.Schema({
 var Message = mongoose.model('message', MessageSchema, 'messages');
 
 router.get('/', function(req,res){
-    res.send("Fishsticks");
+    Message.find({}, function(err, allMessages){
+      if(err){
+        console.log('Mongo Error: ', err);
+      }
+
+      res.send(allMessages);
+    });
 });
 
 router.post('/', function(req,res){
@@ -21,7 +27,7 @@ router.post('/', function(req,res){
 
     message.save(function(err, savedMessage){
       if(err){
-        console.log("Mongo Error: ", err);
+        console.log('Mongo Error: ', err);
         res.sendStatus(500);
       }
 

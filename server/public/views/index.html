@@ -14,7 +14,15 @@
   <body>
     <h1>MEAN DAY!</h1>
     <div ng-controller="BaseController">
+      <!-- var data = { name: $("#el").val(); } -->
+      <input type="text" ng-model="newMessage.name" placeholder="Enter your name">
+      <input type="text" ng-model="newMessage.message" placeholder="Enter your message">
+      <button type="button" ng-click="postMessage(newMessage)">Submit Message</button>
 
+      <div ng-repeat="message in messageList">
+        <p>{{ message.name + " " + message.message }}</p>
+        <!-- $el.append(message.name + " " + message.message); -->
+      </div>
     </div>
   </body>
 </html>

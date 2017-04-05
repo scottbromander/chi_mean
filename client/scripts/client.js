@@ -1,14 +1,25 @@
 var myApp = angular.module('myApp', []);
 
 myApp.controller('BaseController', ['$scope', '$http', function($scope, $http){
-    $scope.firstmessage = {
-      name : "Scott",
-      message : "Just go ahead and type in your first message."
+    $scope.messageList = [];
+    $scope.newMessage = {
+      name: '',
+      message: ''
     };
 
-    $http.post('/message', $scope.firstmessage).then(function(response){
-      console.log(response.data);
-    });
+    // RESTful Interface Functions
+    $scope.getMessages = function(){
+      $http.get('/message').then(function(response){
+        $scope.messageList = response.data;
+        console.log($scope.messageList);
+      });
+    };
 
+    $scope.postMessage = function(fishstick){
+      $http.post('/message', fishstick).then(function(response){
+        $scope.getMessages();
+      });
+    };
 
+    $scope.getMessages();
 }]);
